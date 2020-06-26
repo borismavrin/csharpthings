@@ -1,22 +1,26 @@
 private class Dot{
         public float x, y;
         public Dot(float x, float y){
-            x=this.x;
-            y=this.y;
+            this.x=x;
+            this.y=y; 
+                    
         }
-        public double getAngle(Dot c1, Dot c2){
+        public static double getAngle(Dot c1, Dot c2){
             float xDiff = c2.x - c1.x;
             float yDiff = c2.y - c1.y;
-            return Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
+            
+            return -Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
         }
 
-        public string getDirection (double angle){ //-180 +180
+        public static string getDirection (double angle){ //-180 +180
+         Console.Error.WriteLine("coun111t..." + angle);  
             if(angle<0){
-                angle=360-angle;
+                angle=360-Math.Abs(angle);
             }
             while (angle>180){
                 angle=angle-360;
             }
+             Console.Error.WriteLine("count..." + angle);      
             string direction="";
             if (angle>0){
                 direction="N";
@@ -25,9 +29,8 @@ private class Dot{
             } 
             if (angle>-90 && angle<90){
                 direction=direction + "E";
-            } else if (angle<-90 && angle>90){
-                direction=direction+ "W";
+            } else if (angle<-90 || angle>90){
+                direction= direction+ "W";
             } 
             return direction;
         }
-    }
