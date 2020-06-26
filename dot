@@ -2,35 +2,43 @@ private class Dot{
         public float x, y;
         public Dot(float x, float y){
             this.x=x;
-            this.y=y; 
-                    
+            this.y=y;                     
         }
         public static double getAngle(Dot c1, Dot c2){
             float xDiff = c2.x - c1.x;
             float yDiff = c2.y - c1.y;
-            
             return -Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
         }
-
-        public static string getDirection (double angle){ //-180 +180
-         Console.Error.WriteLine("coun111t..." + angle);  
+        public void moveX(float distance){
+            x=x+distance;
+        }
+        public void moveY(float distance){
+            y=y+distance;
+        }
+        public static string getDirection (ref Dot cel, double angle){ //-180 +180
             if(angle<0){
                 angle=360-Math.Abs(angle);
             }
             while (angle>180){
                 angle=angle-360;
-            }
-             Console.Error.WriteLine("count..." + angle);      
+            }              
             string direction="";
-            if (angle>0){
+            if (angle>0 && angle<180){
                 direction="N";
-            } else if (angle<0){
+                cel.moveY(-1);              
+            } else if (angle<0 && angle>-180){
                 direction="S";
+                cel.moveY(1);              
             } 
-            if (angle>-90 && angle<90){
-                direction=direction + "E";
-            } else if (angle<-90 || angle>90){
-                direction= direction+ "W";
+            if (angle>-90 && angle<90){         
+                direction= direction + "E";
+                cel.moveX(1);
+               
+            } else if (angle<-90 || angle>90){                
+                direction= direction+"W";
+                cel.moveX(-1);             
             } 
+            
             return direction;
         }
+    }
